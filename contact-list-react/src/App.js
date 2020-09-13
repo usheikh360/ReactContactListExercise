@@ -18,7 +18,14 @@ class App extends React.Component {
         "company": "Unknown Inc.",
         "phone": "000-0000",
         "email": "fakedata@unknown.io"
-      }]
+      }],
+    newContactData: {
+      firstName: '',
+      lastName: '',
+      company: '',
+      phone: '',
+      email: ''
+    }
   }
 
 
@@ -49,7 +56,7 @@ class App extends React.Component {
           </Col>
           <Col sm={4}>
             <h2>Add New Contact</h2>
-            <ContactForm />
+            <ContactForm contactData={this.state.newContactData} />
           </Col>
         </Row>
         {/* <ContactModal /> */}
