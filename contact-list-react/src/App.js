@@ -156,6 +156,22 @@ class App extends React.Component {
 
   }
 
+  handleDeleteContact = (event) => {
+    if (event) event.preventDefault();
+    let contactId = event.target.value;
+    console.log(`Submitting delete for contact id ${contactId}`)
+
+    fetch(SERVICE_URL + '/contact/' + contactId, {
+      method: 'DELETE',
+    })
+      .then(data => {
+        this.loadContactData();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
   render() {
     return (
       <Container fluid>
@@ -168,7 +184,7 @@ class App extends React.Component {
         <Row>
           <Col sm={8}>
             <h2>My Contacts</h2>
-            <ContactTable contacts={this.state.contactData} handleEdit={this.handleEditModalOpen} />
+            <ContactTable contacts={this.state.contactData} handleEdit={this.handleEditModalOpen} handleDelete={this.handleDeleteContact} />
           </Col>
           <Col sm={4}>
             <h2>Add New Contact</h2>
