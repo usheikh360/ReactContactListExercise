@@ -2,11 +2,36 @@ import React from 'react'
 import { Table, Button } from 'react-bootstrap'
 
 class ContactTable extends React.Component {
-    Ssuper(props) {
 
+    // this static property will initialize a prop with data
+    // if it hasn't been provided by the parent component
+    static defaultProps = {
+        contacts: [
+            {
+                "contactId": 1,
+                "firstName": "Still Fake",
+                "lastName": "Contact",
+                "company": "Unknown Inc.",
+                "phone": "000-0000",
+                "email": "stillfake@unknown.io"
+            },
+            {
+                "contactId": 2,
+                "firstName": "So Mysterious",
+                "lastName": "Contact",
+                "company": "Unknown Inc.",
+                "phone": "000-0000",
+                "email": "somysterious@unknown.io"
+            }
+        ]
     }
 
+
+
     render() {
+        // Here is a debug method to monitor incoming contact data
+        console.log("Rendering Contact Table:")
+        console.log(this.props.contacts)
         return (<Table striped bordered responsive>
             <thead>
                 <tr>
@@ -21,26 +46,18 @@ class ContactTable extends React.Component {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Fake</td>
-                    <td>Contact</td>
-                    <td>Unknown Inc.</td>
-                    <td>000-0000</td>
-                    <td>fake@unknown.io</td>
-                    <td><Button>Edit</Button></td>
-                    <td><Button>Delete</Button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Mystery</td>
-                    <td>Contact</td>
-                    <td>Unknown Inc.</td>
-                    <td>000-0000</td>
-                    <td>mystery@unknown.io</td>
-                    <td><Button>Edit</Button></td>
-                    <td><Button>Delete</Button></td>
-                </tr>
+                {this.props.contacts.map((contact, i) => {
+                    return (<tr key={i}>
+                        <td>{contact.contactId}</td>
+                        <td>{contact.firstName}</td>
+                        <td>{contact.lastName}</td>
+                        <td>{contact.company}</td>
+                        <td>{contact.phone}</td>
+                        <td>{contact.email}</td>
+                        <td><Button>Edit</Button></td>
+                        <td><Button>Delete</Button></td>
+                    </tr>)
+                })}{/* will evaluate to an array */}
             </tbody>
         </Table>)
     }
