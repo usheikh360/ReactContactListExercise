@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import ContactTable from "./components/ContactTable"
-import ContactForm from "./components/ContactForm"
-import ContactModal from "./components/ContactModal"
+import ContactTable from './components/ContactTable'
+import ContactForm from './components/ContactForm'
+import ContactModal from './components/ContactModal'
 import { Container, Row, Col } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+const SERVICE_URL = "https://tsg-contactlist.herokuapp.com"
 
 class App extends React.Component {
   state = {
@@ -18,6 +19,18 @@ class App extends React.Component {
         "phone": "000-0000",
         "email": "fakedata@unknown.io"
       }]
+  }
+
+
+  componentDidMount() {
+    console.log("App is now mounted.")
+    this.setState({ loading: true })
+    console.log("Loading contact data")
+    fetch(SERVICE_URL + "/contacts")
+      .then(data => data.json())
+      .then(data => this.setState(
+        { contactData: data, loading: false }
+      ))
   }
 
   render() {
@@ -33,7 +46,6 @@ class App extends React.Component {
           <Col sm={8}>
             <h2>My Contacts</h2>
             <ContactTable contacts={this.state.contactData} />
-            <ContactTable />
           </Col>
           <Col sm={4}>
             <h2>Add New Contact</h2>
@@ -41,7 +53,7 @@ class App extends React.Component {
           </Col>
         </Row>
         {/* <ContactModal /> */}
-      </Container >
+      </Container>
     );
   }
 }
